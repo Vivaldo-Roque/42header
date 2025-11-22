@@ -8,31 +8,55 @@
 
 ![42 header](img/42header.jpg)
 
-### **Neovim Setup with Lazy**
+### **UNIX Neovim Setup with Lazy**
 
 1. Install [Lazy.nvim](https://github.com/folke/lazy.nvim) if not already installed.
 
-2. Add the plugin to your `~/.config/nvim/lua/plugins.lua` or equivalent:
+2. Clone this repository into your Neovim plugins directory:
 
-```lua
-return {
-  {
-    '42paris/42header',
-    dir = '/home/vroque/Downloads/42header',  -- or the path to your local clone
-    lazy = true,
-    event = 'BufNewFile',  -- lazy load on new file creation
-  },
-}
+```bash
+git clone https://github.com/42paris/42header ~/.config/nvim/lua/plugins/42header
 ```
 
-3. Set the user and mail variables in your Neovim config (e.g., `~/.config/nvim/init.lua`):
+3. Modify your Neovim config file (e.g., `~/.config/nvim/lua/config/init.lua`) to add the plugin to your Lazy setup:
+
+```lua
+require("lazy").setup({
+  spec = {
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import/override with your plugins
+    { import = "plugins" },
+    -- START the 42header plugin here.
+    {
+      dir = vim.fn.stdpath("config") .. "/lua/plugins/42header",
+      name = "42header",
+      config = function()
+        -- Try loading without setup() first.
+        local ok, plugin = pcall(require, "42header")
+        if not ok then
+          vim.notify("Erro while loading 42header: " .. plugin, vim.log.levels.ERROR)
+        else
+          -- Call setup() only if it exists.
+          if plugin.setup then
+            plugin.setup()
+          end
+        end
+      end,
+    },
+    -- END the 42header plugin here.
+  },
+})
+```
+
+4. Set the user and mail variables in your Neovim config (e.g., `~/.config/nvim/init.lua`):
 
 ```lua
 vim.g.user42 = 'yourLogin'
 vim.g.mail42 = 'yourLogin@student.42.fr'
 ```
 
-### **UNIX Setup**
+### **UNIX Vim Setup**
 
 Copy `stdheader.vim` in your `~/.vim/plugin`, or use your favorite plugin
 manager. Then set the user and mail variables as explained below.
