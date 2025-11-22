@@ -4,9 +4,33 @@
 
 ### **Description**
 
-42 standard header for vim editor.
+42 standard header for vim and neovim editors.
 
 ![42 header](img/42header.jpg)
+
+### **Neovim Setup with Lazy**
+
+1. Install [Lazy.nvim](https://github.com/folke/lazy.nvim) if not already installed.
+
+2. Add the plugin to your `~/.config/nvim/lua/plugins.lua` or equivalent:
+
+```lua
+return {
+  {
+    '42paris/42header',
+    dir = '/home/vroque/Downloads/42header',  -- or the path to your local clone
+    lazy = true,
+    event = 'BufNewFile',  -- lazy load on new file creation
+  },
+}
+```
+
+3. Set the user and mail variables in your Neovim config (e.g., `~/.config/nvim/init.lua`):
+
+```lua
+vim.g.user42 = 'yourLogin'
+vim.g.mail42 = 'yourLogin@student.42.fr'
+```
 
 ### **UNIX Setup**
 
@@ -43,11 +67,11 @@ Inside the **42 clusters** you can easily run:
 
 ### **Credits**
 
-[@zazard](https://github.com/zazard) - creator  
-[@alexandregv](https://github.com/alexandregv) - contributor  
-[@mjacq42](https://github.com/mjacq42) - contributor  
-[@sungmcho](https://github.com/lordtomi0325) - contributor  
-[@fclivaz42](https://github.com/fclivaz42) - contributor  
+[@zazard](https://github.com/zazard) - creator
+[@alexandregv](https://github.com/alexandregv) - contributor
+[@mjacq42](https://github.com/mjacq42) - contributor
+[@sungmcho](https://github.com/lordtomi0325) - contributor
+[@fclivaz42](https://github.com/fclivaz42) - contributor
 
 ### **License**
 
